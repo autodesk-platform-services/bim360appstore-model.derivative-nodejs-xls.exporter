@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by APS Partner Development
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -19,7 +19,7 @@
 $(document).ready(function () {
   $('#refreshAutodeskTree').hide();
   new Clipboard(".input-group-addon");
-  if (getForgeToken() != '') {
+  if (getAPSToken() != '') {
     prepareDataManagementTree();
     $('#refreshAutodeskTree').show();
     $('#refreshAutodeskTree').click(function(){
@@ -27,8 +27,8 @@ $(document).ready(function () {
     });
   }
 
-  $.getJSON("/api/forge/clientID", function (res) {
-    $("#ClientID").val(res.ForgeClientId);
+  $.getJSON("/api/aps/clientID", function (res) {
+    $("#ClientID").val(res.APSClientId);
   });
 
   $("#provisionAccountSave").click(function () {

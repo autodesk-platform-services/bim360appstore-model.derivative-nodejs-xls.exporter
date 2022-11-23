@@ -2,11 +2,12 @@
 
 ![Platforms](https://img.shields.io/badge/platform-Windows|MacOS-lightgray.svg)
 [![License](http://img.shields.io/:license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
-
-[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/developers_guide/overview/)
-[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/api/data-management-cover-page/)
-[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-red.svg)](https://forge.autodesk.com/api/model-derivative-cover-page/)
-[![Viewer](https://img.shields.io/badge/Viewer-v7-blue.svg)](https://forge.autodesk.com/api/viewer-cover-page/)
+[![node.js](https://img.shields.io/badge/Node.js-16.13-blue.svg)](https://nodejs.org)
+[![npm](https://img.shields.io/badge/npm-8.9-blue.svg)](https://www.npmjs.com/)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://aps.autodesk.com/en/docs/oauth/v2/developers_guide/overview/)
+[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://aps.autodesk.com/api/data-management-cover-page/)
+[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-red.svg)](https://aps.autodesk.com/api/model-derivative-cover-page/)
+[![Viewer](https://img.shields.io/badge/Viewer-v7-blue.svg)](https://aps.autodesk.com/api/viewer-cover-page/)
 
 ### Thumbnail
 
@@ -25,13 +26,13 @@ In the project tree of this sample, Autodesk360, BIM360 and ACC project are list
 
 ### Live version
 
-[https://forge-exportxls.autodesk.io](https://forge-exportxls.autodesk.io/)
+[https://aps-exportxls.autodesk.io](https://aps-exportxls.autodesk.io/)
 
 Video: [Youtube](https://youtu.be/800d2xmQl0s)
 
 # Setup
 
-For using this sample, you need to log into your Autodesk developer account. Visit the [Forge Developer Portal](https://developer.autodesk.com) and sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). When asked for the 'callback URL' in your new app, use **http://localhost:3000/api/forge/callback/oauth**. Finally take note of the **Client ID** and **Client Secret**.
+For using this sample, you need to log into your Autodesk developer account. Visit the [APS Developer Portal](https://developer.autodesk.com) and sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). When asked for the 'callback URL' in your new app, use **http://localhost:3000/api/aps/callback/oauth**. Finally take note of the **Client ID** and **Client Secret**.
 
 ### Run locally
 
@@ -39,22 +40,22 @@ Install [NodeJS](https://nodejs.org).
 
 Clone this project or download it. It's recommended to install [GitHub desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
 
-    git clone https://github.com/Autodesk-Forge/forge-exportxls
+    git clone https://github.com/Autodesk-APS/aps-exportxls
 
 To run it, install the required packages, set the enviroment variables with your client ID & secret and finally start it. Via command line, navigate to the folder where this repository was cloned and use the following:
 
 Mac OSX/Linux (Terminal)
 
     npm install
-    export FORGE_CLIENT_ID=<<YOUR CLIENT ID FROM FORGE DEVELOPER PORTAL>>
-    export FORGE_CLIENT_SECRET=<<YOUR FORGE CLIENT SECRET>>
+    export APS_CLIENT_ID=<<YOUR CLIENT ID FROM APS DEVELOPER PORTAL>>
+    export APS_CLIENT_SECRET=<<YOUR APS CLIENT SECRET>>
     npm run dev
 
 Windows (use <b>Node.js command line</b> from Start menu)
 
     npm install
-    set FORGE_CLIENT_ID=<<YOUR CLIENT ID FROM FORGE DEVELOPER PORTAL>>
-    set FORGE_CLIENT_SECRET=<<YOUR FORGE CLIENT SECRET>>
+    set APS_CLIENT_ID=<<YOUR CLIENT ID FROM APS DEVELOPER PORTAL>>
+    set APS_CLIENT_SECRET=<<YOUR APS CLIENT SECRET>>
     npm run dev
 
 Open the browser: [http://localhost:3000](http://localhost:3000).
@@ -71,7 +72,7 @@ Watch [this video](https://www.youtube.com/watch?v=Oqa9O20Gj0c) on how deploy th
 
 ## Packages used
 
-All Autodesk Forge NPM packages are included by default, see complete list of what's available at [NPM website](https://www.npmjs.com/browse/keyword/autodesk). OAuth, Model Derivative and OSS are used. Some other non-Autodesk packaged are used, including [express](https://www.npmjs.com/package/express) and its session/cookie middlewares ([express-session](https://www.npmjs.com/package/express-session) and [cookie-parser](https://www.npmjs.com/package/cookie-parser)) for user session handling. The front-end uses [bootsrap](https://www.npmjs.com/package/bootstrap) and [jquery](https://www.npmjs.com/package/jquery).
+All Autodesk APS NPM packages are included by default, see complete list of what's available at [NPM website](https://www.npmjs.com/browse/keyword/autodesk). OAuth, Model Derivative and OSS are used. Some other non-Autodesk packaged are used, including [express](https://www.npmjs.com/package/express) and its session/cookie middlewares ([express-session](https://www.npmjs.com/package/express-session) and [cookie-parser](https://www.npmjs.com/package/cookie-parser)) for user session handling. The front-end uses [bootsrap](https://www.npmjs.com/package/bootstrap) and [jquery](https://www.npmjs.com/package/jquery).
 
 # Tips & tricks
 
@@ -87,9 +88,9 @@ Which executes **nodemon server.js --ignore www/**, where the **--ignore** param
 
 ## Troubleshooting
 
-1. **getProperties does not return data**: In default, [Get Properties endpoint](https://forge.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-guid-properties-GET/) can only respond with data if the resource < 20M. A query param **forceget** forces get the large resource even if it exceeded the expected maximum length (20 MB). 
+1. **getProperties does not return data**: In default, [Get Properties endpoint](https://aps.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-guid-properties-GET/) can only respond with data if the resource < 20M. A query param **forceget** forces get the large resource even if it exceeded the expected maximum length (20 MB). 
 
-2. **Cannot see my BIM 360 or ACC projects**: Make sure to provision the Forge App Client ID within the BIM 360 or ACC Account, [learn more here](https://forge.autodesk.com/blog/bim-360-docs-provisioning-forge-apps). This requires the Account Admin permission.
+2. **Cannot see my BIM 360 or ACC projects**: Make sure to provision the APS App Client ID within the BIM 360 or ACC Account, [learn more here](https://aps.autodesk.com/blog/bim-360-docs-provisioning-aps-apps). This requires the Account Admin permission.
 
 3. **Cannot load Autodesk360 model**: In Autodesk360, the model is not translated by default until the end user loads the model one time in Autodesk360, or the developer posts job to translate. 
 
@@ -98,10 +99,10 @@ Which executes **nodemon server.js --ignore www/**, where the **--ignore** param
 
 ## Blogs
 
-- [Forge Blog](https://forge.autodesk.com/categories/bim-360-api)
+- [APS Blog](https://aps.autodesk.com/categories/bim-360-api)
 - [Field of View](https://fieldofviewblog.wordpress.com/), a BIM focused blog
-- [Autodesk Construction Cloud Unified Products: Does it Affect My Application?](https://forge.autodesk.com/blog/autodesk-construction-cloud-unified-products-does-it-affect-my-application)
-- [Autodesk Build and Other Autodesk Construction Cloud Unified Products Launch](https://forge.autodesk.com/blog/autodesk-build-and-other-autodesk-construction-cloud-unified-products-launch)
+- [Autodesk Construction Cloud Unified Products: Does it Affect My Application?](https://aps.autodesk.com/blog/autodesk-construction-cloud-unified-products-does-it-affect-my-application)
+- [Autodesk Build and Other Autodesk Construction Cloud Unified Products Launch](https://aps.autodesk.com/blog/autodesk-build-and-other-autodesk-construction-cloud-unified-products-launch)
 
 # License
 

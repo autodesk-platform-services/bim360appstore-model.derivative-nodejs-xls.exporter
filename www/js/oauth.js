@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by APS Partner Development
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -17,22 +17,22 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-  var currentToken = getForgeToken();
+  var currentToken = getAPSToken();
 
   if (currentToken === '')
-    $('#signInButton').click(forgeSignIn);
+    $('#signInButton').click(apsSignIn);
   else {
-    getForgeUserProfile(function (profile) {
+    getAPSUserProfile(function (profile) {
       $('#signInProfileImage').removeClass(); // remove glyphicon-user
       $('#signInProfileImage').html('<img src="' + profile.picture + '"/>')
       $('#signInButtonText').text("Sign Out");
       $('#signInButtonText').attr('title', "Sign out " + profile.name);
-      $('#signInButton').click(forgeLogoff);
+      $('#signInButton').click(apsLogoff);
     });
   }
 });
 
-function forgeSignIn() {
+function apsSignIn() {
   jQuery.ajax({
     url: '/user/authenticate',
     success: function (rootUrl) {
@@ -41,7 +41,7 @@ function forgeSignIn() {
   });
 }
 
-function forgeLogoff() {
+function apsLogoff() {
   jQuery.ajax({
     url: '/user/logoff',
     success: function (oauthUrl) {
@@ -50,20 +50,20 @@ function forgeLogoff() {
   });
 }
 
-function getForgeToken() {
+function getAPSToken() {
   var token = '';
   jQuery.ajax({
     url: '/user/token',
     success: function (res) {
       token = res;
     },
-    async: false // this request must be synchronous for the Forge Viewer
+    async: false // this request must be synchronous for the APS Viewer
   });
   if (token != '') console.log('3 legged token (User Authorization): ' + token); // debug
   return token;
 }
 
-function getForgeUserProfile(onsuccess) {
+function getAPSUserProfile(onsuccess) {
   var profile = '';
   jQuery.ajax({
     url: '/user/profile',

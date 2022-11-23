@@ -32,7 +32,7 @@ class ModelData {
     }
 
     getAllLeafComponents(callback) {
-        // from https://learnforge.autodesk.io/#/viewer/extensions/panel?id=enumerate-leaf-nodes
+        // from https://learnaps.autodesk.io/#/viewer/extensions/panel?id=enumerate-leaf-nodes
         viewer.getObjectTree(function (tree) {
             var leaves = [];
             tree.enumNodeChildren(tree.getRootId(), function (dbId) {

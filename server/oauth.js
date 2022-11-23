@@ -7,29 +7,29 @@ var token = require('./token');
 var express = require('express');
 var router = express.Router();
 
-// forge oAuth package
-var forgeSDK = require('forge-apis');
+// aps oAuth package
+var apsSDK = require('forge-apis');
 
-// forge config information, such as client ID and secret
+// aps config information, such as client ID and secret
 var config = require('./config');
 
 var request = require('request');
 
-router.get('/api/forge/clientID', function (req, res) {
+router.get('/api/aps/clientID', function (req, res) {
   res.json({
-    'ForgeClientId': config.credentials.client_id
+    'APSClientId': config.credentials.client_id
   });
 });
 
 // this end point will logoff the user by destroying the session
-// as of now there is no Forge endpoint to invalidate tokens
+// as of now there is no APS endpoint to invalidate tokens
 router.get('/user/logoff', function (req, res) {
   req.session.destroy();
   res.end('/');
 });
 
 // return name & picture of the user for the front-end
-// the forge @me endpoint returns more information
+// the aps @me endpoint returns more information
 router.get('/user/profile', function (req, res) {
   var tokenSession = new token(req.session);
   if (!tokenSession.isAuthorized()) {
@@ -78,7 +78,7 @@ router.get('/user/token', function (req, res) {
   res.end(tokenSession.getPublicCredentials().access_token);
 });
 
-// return the forge authenticate url
+// return the aps authenticate url
 router.get('/user/authenticate', function (req, res) {
   // redirect the user to this page
   var url =
@@ -91,12 +91,12 @@ router.get('/user/authenticate', function (req, res) {
 });
 
 // wait for Autodesk callback (oAuth callback)
-router.get('/api/forge/callback/oauth', function (req, res) {
+router.get('/api/aps/callback/oauth', function (req, res) {
   var code = req.query.code;
   var tokenSession = new token(req.session);
 
   // first get a full scope token for internal use (server-side)
-  var req = new forgeSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopeInternal);
+  var req = new apsSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopeInternal);
   console.log(code);
   req.getToken(code)
     .then(function (internalCredentials) {
@@ -107,7 +107,7 @@ router.get('/api/forge/callback/oauth', function (req, res) {
       console.log('Internal token (full scope): ' + internalCredentials.access_token); // debug
 
       // then refresh and get a limited scope token that we can send to the client
-      var req2 = new forgeSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopePublic);
+      var req2 = new apsSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopePublic);
       req2.refreshToken(internalCredentials)
         .then(function (publicCredentials) {
           tokenSession.setPublicCredentials(publicCredentials);

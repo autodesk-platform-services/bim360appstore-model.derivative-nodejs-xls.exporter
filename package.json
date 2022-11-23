@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "body-parser": "1.18.3",
-    "bootstrap": "3.4.1",
-    "cookie-parser": "1.4.3",
-    "express": "4.16.3",
-    "express-session": "1.15.6",
-    "forge-apis": "0.4.3",
-    "jquery": "^3.5.1",
-    "jstree": "3.3.7",
-    "moment": "2.22.2",
+    "body-parser": "1.20.1",
+    "bootstrap": "^3.4.1",
+    "cookie-parser": "1.4.6",
+    "express": "4.18.2",
+    "express-session": "1.17.3",
+    "forge-apis": "0.9.4",
+    "jquery": "^3.6.1",
+    "jstree": "3.3.12",
+    "moment": "2.29.4",
     "request": "^2.81.0"
   },
   "repository": {
@@ -23,6 +23,6 @@
     "dev": "node start.js",
     "nodemon": "nodemon start.js --ignore www/"
   },
-  "author": "Michale Beale (Forge Partner Development)",
+  "author": "Michale Beale (APS Partner Development)",
   "license": "MIT"
 }

@@ -5,8 +5,8 @@ var token = require('./token');
 var express = require('express');
 var router = express.Router();
 
-// forge
-var forgeSDK = require('forge-apis');
+// aps
+var apsSDK = require('forge-apis');
 
 router.get('/dm/getTreeNode', function (req, res) {
   var tokenSession = new token(req.session);
@@ -48,7 +48,7 @@ router.get('/dm/getTreeNode', function (req, res) {
 function getFolders(hubId, projectId, tokenSession, res) {
   // if the caller is a project, then show folders
 
-  var projects = new forgeSDK.ProjectsApi();
+  var projects = new apsSDK.ProjectsApi();
   projects.getProjectTopFolders(hubId, projectId, tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
     .then(function (topFolders) {
       var folderItemsForTree = [];
@@ -71,7 +71,7 @@ function getFolders(hubId, projectId, tokenSession, res) {
 
 function getProjects(hubId, tokenSession, res) {
   // if the caller is a hub, then show projects
-  var projects = new forgeSDK.ProjectsApi();
+  var projects = new apsSDK.ProjectsApi();
 
   //console.log(tokenSession.getInternalOAuth());
   //console.log(tokenSession.getInternalCredentials());
@@ -114,7 +114,7 @@ function getProjects(hubId, tokenSession, res) {
 
 function getHubs(tokenSession, res) {
   // # stands for ROOT
-  var hubs = new forgeSDK.HubsApi();
+  var hubs = new apsSDK.HubsApi();
 
   hubs.getHubs({}, tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
     .then(function (data) {
@@ -152,7 +152,7 @@ function getHubs(tokenSession, res) {
 
 
 function getFolderContents(projectId, folderId, tokenSession, res) {
-  var folders = new forgeSDK.FoldersApi();
+  var folders = new apsSDK.FoldersApi();
   folders.getFolderContents(projectId, folderId, {}, tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
     .then(function (folderContents) {
       var folderItemsForTree = [];
@@ -179,7 +179,7 @@ function getFolderContents(projectId, folderId, tokenSession, res) {
 var moment = require('moment');
 
 function getVersions(projectId, itemId, tokenSession, res) {
-  var items = new forgeSDK.ItemsApi();
+  var items = new apsSDK.ItemsApi();
   items.getItemVersions(projectId, itemId, {}, tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
     .then(function (versions) {
       var versionsForTree = [];
@@ -217,7 +217,7 @@ function prepareItemForTree(_id, _text, _type, _children, _fileType, _fileName) 
     switch (resourceName) {
       case 'hubs':
         // if the caller is a hub, then show projects
-        var projects = new forgeSDK.ProjectsApi();
+        var projects = new apsSDK.ProjectsApi();
         projects.getHubProjects(resourceId, {},
           tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
           .then(function (projects) {
@@ -231,12 +231,12 @@ function prepareItemForTree(_id, _text, _type, _children, _fileType, _fileName) 
       case 'projects':
         // if the caller is a project, then show folders
         var hubId = params[params.length - 3];
-        var projects = new forgeSDK.ProjectsApi();
+        var projects = new apsSDK.ProjectsApi();
         projects.getProject(hubId, resourceId,
           tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
           .then(function (project) {
             var rootFolderId = project.body.data.relationships.rootFolder.data.id;
-            var folders = new forgeSDK.FoldersApi();
+            var folders = new apsSDK.FoldersApi();
             folders.getFolderContents(resourceId, rootFolderId, {},
               tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
               .then(function (folderContents) {
@@ -255,7 +255,7 @@ function prepareItemForTree(_id, _text, _type, _children, _fileType, _fileName) 
       case 'folders':
         // if the caller is a folder, then show contents
         var projectId = params[params.length - 3];
-        var folders = new forgeSDK.FoldersApi();
+        var folders = new apsSDK.FoldersApi();
         folders.getFolderContents(projectId, resourceId,
           {}, tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
           .then(function (folderContents) {
@@ -269,7 +269,7 @@ function prepareItemForTree(_id, _text, _type, _children, _fileType, _fileName) 
       case 'items':
         // if the caller is an item, then show versions
         var projectId = params[params.length - 3];
-        var items = new forgeSDK.ItemsApi();
+        var items = new apsSDK.ItemsApi();
         items.getItemVersions(projectId, resourceId,
           {}, tokenSession.getInternalOAuth(), tokenSession.getInternalCredentials())
           .then(function (versions) {

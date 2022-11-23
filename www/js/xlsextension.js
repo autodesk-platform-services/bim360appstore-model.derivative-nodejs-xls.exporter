@@ -16,14 +16,14 @@ XLSExtension.prototype.load = function () {
   var _viewer = this.viewer;
 
 
-  // get Forge token (use your data:read endpoint here)
+  // get APS token (use your data:read endpoint here)
   // this sample is using client-side JavaScript only, so no
-  // back-end that authenticate with Forge nor files, therefore
+  // back-end that authenticate with APS nor files, therefore
   // is using files from another sample. On your implementation,
   // you should replace this with your own Token endpoint
-  function getForgeToken(callback) {
+  function getAPSToken(callback) {
     jQuery.ajax({
-      url: '/forge/oauth/token',
+      url: '/aps/oauth/token',
       success: function (oauth) {
         if (callback)
           callback(oauth.access_token, oauth.expires_in);
@@ -36,7 +36,7 @@ XLSExtension.prototype.load = function () {
     // Button 1
     var button1 = new Autodesk.Viewing.UI.Button('toolbarXLS');
     button1.onClick = function (e) {
-        ForgeXLS.downloadXLSX(fileName.replace(/\./g, '') + ".xlsx", statusCallback);/*Optional*/
+        APSXLS.downloadXLSX(fileName.replace(/\./g, '') + ".xlsx", statusCallback);/*Optional*/
     };
     button1.addClass('toolbarXLSButton');
     button1.setToolTip('Export to .XLSX');
