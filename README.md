@@ -40,7 +40,7 @@ Install [NodeJS](https://nodejs.org).
 
 Clone this project or download it. It's recommended to install [GitHub desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
 
-    git clone https://github.com/Autodesk-APS/aps-exportxls
+    git clone https://github.com/autodesk-platform-services/bim360appstore-model.derivative-nodejs-xls.exporter
 
 To run it, install the required packages, set the enviroment variables with your client ID & secret and finally start it. Via command line, navigate to the folder where this repository was cloned and use the following:
 
